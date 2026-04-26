@@ -1,7 +1,10 @@
 [[containers]]
 source = "ghcr.io/chronopax/bazzite-p1000:latest"
 
-[customizations]
+[[customizations.filesystem]]
+mountpoint = "/"
+minsize = "10 GiB"
+
 [customizations.installer]
 unattended = false
 sudo-nopasswd = ["wheel"]
