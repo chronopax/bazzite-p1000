@@ -13,6 +13,11 @@
 
 FROM ghcr.io/ublue-os/bazzite-nvidia:stable
 
+# Fix terra-mesa GPG key missing in bootc-image-builder context
+RUN curl -Lo /etc/pki/rpm-gpg/RPM-GPG-KEY-terra43-mesa \
+    https://raw.githubusercontent.com/terrapkg/packages/frawhide/anda/terra/gpg-keys/RPM-GPG-KEY-terra43-mesa || \
+    rpm --import https://repos.fyralabs.com/terra43-mesa/key.asc
+
 ### Image labels
 LABEL org.opencontainers.image.title="bazzite-p1000"
 LABEL org.opencontainers.image.description="Bazzite with NVIDIA 580 LTS for Pascal GPUs — HP Z2 Mini G4 / Quadro P1000"
