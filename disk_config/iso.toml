@@ -1,0 +1,7 @@
+[[containers]]
+source = "ghcr.io/chronopax/bazzite-p1000:latest"
+
+[customizations]
+[customizations.installer]
+unattended = false
+sudo-nopasswd = ["wheel"]
