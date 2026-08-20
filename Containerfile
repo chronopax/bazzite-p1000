@@ -13,6 +13,15 @@
 
 FROM ghcr.io/ublue-os/bazzite-nvidia:stable
 
+# Pascal support ends with the proprietary 580 driver branch. Refuse to
+# publish an image if the moving Bazzite stable tag ever advances past it.
+RUN set -eu; \
+    driver_version="$(rpm -q --qf '%{VERSION}\n' nvidia-driver-libs.x86_64)"; \
+    case "$driver_version" in \
+      580.*) echo "Verified NVIDIA $driver_version for Quadro P1000" ;; \
+      *) echo "Unsupported NVIDIA driver $driver_version: Quadro P1000 requires 580.x" >&2; exit 1 ;; \
+    esac
+
 # Disable terra-mesa repo — GPG key causes bootc-image-builder to fail
 RUN rm -f /etc/yum.repos.d/terra-mesa.repo
 
